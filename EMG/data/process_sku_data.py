@@ -11,7 +11,7 @@ def get_data(txt_filepath, label):
     with open(txt_filepath, 'r', encoding='utf-8') as file:
         for line in file:
             number = int(line.strip())
-            if number > 10000:
+            if number > 2000:
                 continue
             sku_data.append(number)
             sku_label.append(label)
@@ -55,8 +55,8 @@ if __name__ == '__main__':
     get_data('./sku_data/8.txt', 1)
     get_data('./sku_data/2.txt', 2)
     get_data('./sku_data/3.txt', 3)
-    get_data('./sku_data/4.txt', 4)
-    get_data('./sku_data/5.txt', 5)
+    # get_data('./sku_data/4.txt', 4)
+    get_data('./sku_data/5.txt', 4)
     sku_data = np.array(sku_data, dtype=np.int32)
     sku_label = np.array(sku_label, np.int32)
 

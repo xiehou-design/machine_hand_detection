@@ -17,7 +17,7 @@ def load_image_feature(image_feature_filepath):
     file = h5py.File(image_feature_filepath, 'r')
     imageData = file['featureData'][:]
     # 放缩
-    imageData = imageData / 10000
+    imageData = imageData / 2000
     imageLabel = file['featureLabel'][:]
     file.close()
     return imageData, imageLabel
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    model = Model(classes=6)
+    model = Model(classes=5)
     loss_function = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=20, eta_min=5e-5)

@@ -39,9 +39,9 @@ def get_data(txt_filepath):
     with open(txt_filepath, 'r', encoding='utf-8') as file:
         for line in file:
             number = int(line.strip())
-            if number > 10000:
+            if number > 2000:
                 continue
-            sku_data.append(number / 10000)
+            sku_data.append(number / 2000)
     return sku_data
 
 
@@ -63,18 +63,18 @@ def get_image_feature(iemg):
 if __name__ == '__main__':
     while True:
         print('开始采集数据')
-        # sample_data()
-        # time.sleep(0.5)
+        sample_data()
+        time.sleep(0.5)
 
         # data process
         print('开始数据处理')
-        sku_data = get_data('./data/sku_data/2.txt')
+        sku_data = get_data('./test.txt')
         sku_data = np.array(sku_data, dtype=np.float32)
         image_data = get_image_feature(sku_data)
 
         print('load model')
-        model = Model(classes=6)
-        model.load_state_dict(torch.load('./savemodel/epoch_23_0.8617363344051447_0.41334909840654105.pth'))
+        model = Model(classes=5)
+        model.load_state_dict(torch.load('./savemodel/epoch_16_0.8883720930232558_0.3265236180137705.pth'))
 
         print('start predict')
         results = []
@@ -86,6 +86,7 @@ if __name__ == '__main__':
             data = torch.from_numpy(data)
             data = data.type(torch.float32)
             prediction = model(data)
+            print(prediction)
             results.append(torch.argmax(prediction, dim=-1)[0].item())
 
         counter = Counter(results)
@@ -117,7 +118,7 @@ if __name__ == '__main__':
         }
         # 响应请求
         print(emg2hand[emg])
-        ser = serial.Serial('com6', 115200, timeout=1)
+        ser = serial.Serial('com4', 115200, timeout=1)
         count = 0
         while count < 3:
             ser.write(emg2hand[emg].encode('utf-8'))
