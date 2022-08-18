@@ -39,9 +39,9 @@ def get_data(txt_filepath):
     with open(txt_filepath, 'r', encoding='utf-8') as file:
         for line in file:
             number = int(line.strip())
-            if number > 2000:
+            if number > 5000:
                 continue
-            sku_data.append(number / 2000)
+            sku_data.append(number / 5000)
     return sku_data
 
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
         print('load model')
         model = Model(classes=5)
-        model.load_state_dict(torch.load('./savemodel/epoch_16_0.8883720930232558_0.3265236180137705.pth'))
+        model.load_state_dict(torch.load('./savemodel/epoch_4_0.8924949290060852_0.3302536927343857.pth'))
 
         print('start predict')
         results = []

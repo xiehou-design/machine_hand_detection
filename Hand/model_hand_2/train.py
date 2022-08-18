@@ -91,6 +91,18 @@ if __name__ == '__main__':
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     model = HandModel(classes=6)
+    '''
+    resModel = ResModel(classes=6)
+    new_state = {}
+    weight_state = torch.load('./pretrained/resnet50-19c8e357.pth')
+    for key, value in weight_state.items():
+        if 'fc' not in key:
+            new_state['model.' + key] = value
+        else:
+            new_state['model.' + key] = resModel.state_dict()['model.' + key]
+    resModel.load_state_dict(new_state)
+    model=resModel
+    '''
     loss_function = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=20, eta_min=5e-5)

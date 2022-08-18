@@ -87,3 +87,37 @@ EMG手势识别也提供两份数据集，一份是公开的`SIA_delsys_16_movem
 
 对于公开的`SIA_delsys_16_movements_data`数据，我们采用`./EMG/data/data.py`进行数据处理，处理后将会得到`image_feature.h5`和`time_feature.h5`文件。同样采用`./EMG/data/process_sku_data.py`进行数据处理，处理后将会得到`image_feature.h5`。这是模型的输入文件，必须严格控制其输入格式。
 
+对于数据加载`Dataset`类，我们在`./EMG/data/dataset.py`中进行实现，可以根据自己的需求进行实现。
+
+采样数据我们一般放在`./EMG/data/sku_data`文件夹存放数据。
+
+## 模型训练
+
+模型要训练的话可以直接执行`./EMG/data/train.py`文件，需要注意的是模型加载的数据需要修改、模型预测种类的数量需要修改，可以按照自己的需求进行修改。
+
+我们这里针对开放的数据集提供了四种模型，均存放在`./EMG/model`文件夹目录下，分别是一维卷积（TextCNN）`conv1D.py`、二维卷积`conv2D.py`、随机森林`randomForest.py`、支持向量机`svm.py`。其中一维卷积`conv1D.py`可能需要更改某些参数，来满足你的模型需求。对于在自己采集的数据集，则仅有`conv1D.py`模型可以支持使用，目前只有一个数据采样器，如果后面会有扩展的话，可以支持多种方式实现。
+
+重要！！！`train.py`中`load_image_feature`函数中**/100**需要和`process_sku_data.py`中的**>100**对应上。`predict.py`和`inference.py`中的`sample_data`函数也是一样的，需要对应上。
+
+## 模型推理
+
+模型推理主要参考`predict.py`和`inference.py`文件。
+
+
+
+# 训练曲线查看
+
+打开`tensorboard`需要先跳转到`log`对应的根目录下，然后执行 `tensorboard --logdir=log`命令即可。
+
+
+
+# 卷积计算公式
+
+stride(步长)、input_shape(输入图像大小)、padding(填充)、kernel_size(卷积核大小)、output_shape(输出维度)
+$$
+output\_shape=\frac{input\_shape - kernel\_size+1+2*padding}{stride}
+$$
+eg. input_shape=(6,6)、kernel_size=(3,3)、padding=(1,1)、stride=(2,2)
+
+结果：output_shape=(4,4)
+

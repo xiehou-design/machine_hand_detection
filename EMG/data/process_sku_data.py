@@ -10,18 +10,21 @@ sku_label = []
 def get_data(txt_filepath, label):
     with open(txt_filepath, 'r', encoding='utf-8') as file:
         for line in file:
-            number = int(line.strip())
-            if number > 2000:
-                continue
-            sku_data.append(number)
-            sku_label.append(label)
+            try:
+                number = int(line.strip())
+                if number > 100:
+                    continue
+                sku_data.append(number)
+                sku_label.append(label)
+            except:
+                pass
 
 
 def get_image_feature(emg, label):
     '''构建图像特征'''
     imageData = []
     imageLabel = []
-    classes = 6
+    classes = 2
     imageLength = 200
 
     for i in range(classes):
@@ -51,12 +54,14 @@ def save_image_feature(save_filepath, image_featureData, image_featureLabel):
 
 
 if __name__ == '__main__':
-    get_data('./sku_data/ok.txt', 0)
-    get_data('./sku_data/8.txt', 1)
-    get_data('./sku_data/2.txt', 2)
-    get_data('./sku_data/3.txt', 3)
-    # get_data('./sku_data/4.txt', 4)
-    get_data('./sku_data/5.txt', 4)
+    # get_data('./sku_data/ok.txt', 0)
+    # get_data('./sku_data/8.txt', 1)
+    # get_data('./sku_data/2.txt', 2)
+    # get_data('./sku_data/3.txt', 3)
+    # # get_data('./sku_data/4.txt', 4)
+    # get_data('./sku_data/5.txt', 4)
+    get_data('./sku_data/quan.txt', 0)
+    get_data('./sku_data/bu.txt', 1)
     sku_data = np.array(sku_data, dtype=np.int32)
     sku_label = np.array(sku_label, np.int32)
 

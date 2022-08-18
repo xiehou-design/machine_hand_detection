@@ -6,7 +6,7 @@ from sklearn import metrics
 from sklearn.model_selection import cross_val_score
 from sklearn.svm import SVC
 
-file = h5py.File('../sku_data/time_feature.h5', 'r')
+file = h5py.File('../data/time_feature.h5', 'r')
 featureData = file['featureData'][:]
 featureLabel = file['featureLabel'][:]
 file.close()
