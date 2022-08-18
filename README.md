@@ -61,7 +61,7 @@ epochs = 100
 
 在这个项目中，我们也制作了一个可视化的软件，便于项目成果的演示，主要包含这几个文件，具体如下下图1所示：
 
-![image-20220817101914776](D:\Python\project\machine_hand_detection\pictures\image-20220817101914776.png)
+![image-20220817101914776](.\pictures\image-20220817101914776.png)
 
 <center>图1 软件包含的代码文件</center>
 
@@ -101,9 +101,7 @@ EMG手势识别也提供两份数据集，一份是公开的`SIA_delsys_16_movem
 
 ## 模型推理
 
-模型推理主要参考`predict.py`和`inference.py`文件。
-
-
+模型推理主要参考`predict.py`和`inference.py`文件。主要需要修改**arduino**板子的端口和波动率，模型加载权重路径。
 
 # 训练曲线查看
 
